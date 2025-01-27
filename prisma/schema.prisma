@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+//NOTE TO TOMORROW ME, POINTERS REFERS TO ARRAY
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id Int @id @default(autoincrement())
+  username String @unique
+  recipes Recipe[]
+}
+
+model Catgeory{
+  id Int @id @default(autoincrement())
+  name String @unique //desert, main course, appetiser
+  recipe Recipe[]
+  spicy Float
+}
+
+model Ingredient {
+  id Int @id @default(autoincrement())
+  name String
+  recipes RecipeIngredient[]
+  diet String //things like keto
+  allergy String //if things contain allergens
+}
+
+model Recipe{
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  prepTime Int //time in minutes
+  cookTime Int
+  servints Int
+  createdAt DateTime
+  updatedAt DateTime
+  categoryId Int
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  category Catgeory @relation(fields:[categoryId], references:[id])
+  recipeIngredients RecipeIngredient[]
+  steps Step[]
+  allergy String
+
+}
+
+model RecipeIngredient{
+  id Int @id @default(autoincrement())
+  quantity Float
+  unit String //adds in cups and things
+  recipeId Int
+  ingredientId Int
+  ingredient Ingredient @relation(fields: [ingredientId], references:[id])
+  recipe Recipe @relation(fields:[recipeId], references:[id])
+
+}
+
+model Step{
+  id Int @id @default(autoincrement())
+  description String
+  recipeOrder Int
+  recipeId Int
+  recipe Recipe @relation(fields:[recipeId], references:[id])
+}
+
+enum Role{
+  USER
+  ADMIN
+}
