@@ -5,7 +5,6 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 
-//NOTE TO TOMORROW ME, POINTERS REFERS TO ARRAY
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,63 +15,62 @@ datasource db {
 }
 
 
-model User{
+model Users{
   id Int @id @default(autoincrement())
   username String @unique
-  recipes Recipe[]
+  recipes Recipes[]
 }
 
-model Catgeory{
+model Catgeories{
   id Int @id @default(autoincrement())
   name String @unique //desert, main course, appetiser
-  recipe Recipe[]
-  spicy Float
+  recipe Recipes[]
+  spicy Float?
+  allergy String?
+  diet String?
 }
 
-model Ingredient {
+model Ingredients {
   id Int @id @default(autoincrement())
   name String
-  recipes RecipeIngredient[]
-  diet String //things like keto
-  allergy String //if things contain allergens
+  recipes RecipeIngredients[]
 }
 
-model Recipe{
+model Recipes{
   id Int @id @default(autoincrement())
   title String
   description String
-  prepTime Int //time in minutes
+  prepTime Int? //time in minutes
   cookTime Int
-  servints Int
+  servings Int?
   createdAt DateTime
   updatedAt DateTime
   categoryId Int
   userId Int
-  user User @relation(fields: [userId], references: [id])
-  category Catgeory @relation(fields:[categoryId], references:[id])
-  recipeIngredients RecipeIngredient[]
-  steps Step[]
-  allergy String
+  user Users @relation(fields: [userId], references: [id])
+  category Catgeories @relation(fields:[categoryId], references:[id])
+  recipeIngredients RecipeIngredients[]
+  steps Steps[]
 
 }
 
-model RecipeIngredient{
+model RecipeIngredients{
   id Int @id @default(autoincrement())
   quantity Float
   unit String //adds in cups and things
   recipeId Int
   ingredientId Int
-  ingredient Ingredient @relation(fields: [ingredientId], references:[id])
-  recipe Recipe @relation(fields:[recipeId], references:[id])
+  ingredient Ingredients @relation(fields: [ingredientId], references:[id])
+  recipe Recipes @relation(fields:[recipeId], references:[id])
 
 }
 
-model Step{
+model Steps{
   id Int @id @default(autoincrement())
   description String
   recipeOrder Int
   recipeId Int
-  recipe Recipe @relation(fields:[recipeId], references:[id])
+  recipe Recipes @relation(fields:[recipeId], references:[id])
 }
 
 enum Role{
