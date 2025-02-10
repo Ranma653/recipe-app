@@ -12,7 +12,7 @@ import {
     DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+
 
 
 // im gonna be adding comments to this for readability. is it a lot? yes.
@@ -43,7 +43,7 @@ export function AccountDrop(){
                 
                 {/* finally we have the log out */}
                 <DropdownMenuItem>
-                    <LogoutLink>Log Out</LogoutLink>
+                    {/* <LogoutLink>Log Out</LogoutLink> */}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

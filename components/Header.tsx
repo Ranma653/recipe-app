@@ -1,12 +1,16 @@
+"use client"
+
 import {HomeIcon, File, UsersRound, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import {LogoutLink, LoginLink, RegisterLink} from '@kinde-oss/kinde-auth-nextjs/components';
+
 
 
 import { NavButton } from './NavButton';
 import { ModeToggle } from './ModeToggle';
 import { NavButtonMenu } from './NavButtonMenu';
+import { SignInButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 export function Header(){
 
@@ -28,23 +32,12 @@ export function Header(){
         {/*  setting up the new recipe button to pup up a modal, adding in the day/night mode, and login/logout button*/}
         
         <ModeToggle />
-        <Button
-            variant="ghost"
-            size="icon"
-            aria-label="LogIn"
-            title="LogIn"
-            className='rounded-full'
-            asChild>
-                <LoginLink> Log In</LoginLink>
-            </Button>
-        <Button
-            variant="ghost"
-            size="icon"
-            aria-label="Register"
-            className='rounded-full'
-            asChild>
-                <RegisterLink>Register</RegisterLink>
-            </Button>
+        <SignedOut>
+            <SignInButton></SignInButton>    
+        </SignedOut>
+        <SignedIn>
+            <UserButton />
+        </SignedIn>
 
     </header>
    )

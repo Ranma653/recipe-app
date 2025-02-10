@@ -15,9 +15,10 @@ datasource db {
 }
 
 
-model Users{
+model User{
   id Int @id @default(autoincrement())
-  username String @unique
+  clerkUserId String @unique
+  email String @unique
   recipes Recipes[]
 }
 
@@ -47,7 +48,7 @@ model Recipes{
   updatedAt DateTime
   categoryId Int
   userId Int
-  user Users @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
   category Catgeories @relation(fields:[categoryId], references:[id])
   recipeIngredients RecipeIngredients[]
   steps Steps[]
