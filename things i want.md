@@ -7,6 +7,6 @@
 [] page for: profile
 [] store user to database
 [] add redirect when unregistered user attempts to create recipe
-
+[] add on way to add new lines for ingredients and steps
 
 [x]day night mode
