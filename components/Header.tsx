@@ -3,6 +3,7 @@
 import {HomeIcon, File, UsersRound, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from './ui/button';
+import { checkUser } from '@/lib/checkUser';
 
 
 
@@ -13,7 +14,7 @@ import { SignInButton } from '@clerk/nextjs';
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 
 export function Header(){
-
+    
    return( 
     <header className=' bg-background h-12 p-2 border-b sticky top-z z-20'>
         
@@ -33,7 +34,7 @@ export function Header(){
         
         <ModeToggle />
         <SignedOut>
-            <SignInButton></SignInButton>    
+            <SignInButton />  
         </SignedOut>
         <SignedIn>
             <UserButton />

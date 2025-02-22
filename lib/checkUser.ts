@@ -1,4 +1,4 @@
-"use client"
+"use server"
 
 import { currentUser} from"@clerk/nextjs/server"
 import { db } from "@/lib/db"
@@ -21,7 +21,7 @@ export const checkUser = async () => {
     
     //check if user is already in the DB. you can tell this pokes the DB because i told you it does
     //i made 4 database migrations to fix this. if this doesn't work me gonna get angy 🧨
-    const loggedInUser = await db.user.findUnique({
+    const loggedInUser = await db.users.findUnique({
         where: {
             clerkUserId: user.id
         }
@@ -33,12 +33,13 @@ export const checkUser = async () => {
     }
 
     //if not in database, create new user
-    const newUser = await db.user.create({
+    const newUser = await db.users.create({
         data: {
-            clerkUserId: user.id,
-            email: user.emailAddresses[0].emailAddress,
-        }
-    });
+          username: loggedInUser!.username,
+          clerkUserId: loggedInUser!.clerkUserId,
+          email: loggedInUser!.email,
+        },
+      });
 
     return newUser;
 }

@@ -16,9 +16,11 @@ datasource db {
 
 
 model Users{
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   username String @unique
+  clerkUserId String @unique
   recipes Recipes[]
+  email String @unique
 }
 
 model Catgeories{
@@ -46,8 +48,8 @@ model Recipes{
   createdAt DateTime
   updatedAt DateTime
   categoryId Int
-  userId Int
-  user Users @relation(fields: [userId], references: [id])
+  userId String
+  user Users @relation(fields: [userId], references: [clerkUserId])
   category Catgeories @relation(fields:[categoryId], references:[id])
   recipeIngredients RecipeIngredients[]
   steps Steps[]
