@@ -27,7 +27,7 @@ export async function createRecipe(formData: FormData){
   const user = await currentUser();
     const loggedInUser = await db.users.findUnique({
       where: {
-          clerkUserId: user?.id
+          clerkUserId: user!.id
       }
   });
   

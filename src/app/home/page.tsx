@@ -1,4 +1,4 @@
-import { CreateRecipe } from "@/components/CreateRecipe";
+import { CreateRecipe } from "@/components/CreateRecipeInput";
 
 export default function Home(){
 
